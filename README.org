@@ -31,6 +31,8 @@ export the pages using the [[https://gohugo.io/][Hugo]] engine.
 * Posts [0/0]                                                                   :@code:@clues:
 :PROPERTIES:
 :EXPORT_HUGO_SECTION_FRAG: clues
+** DONE Loops in Lisp                                                          :100daysToOffload:
+CLOSED: [2022-05-03 Tue 21:55]
 :PROPERTIES:
 :EXPORT_FILE_NAME: loops-in-lisp
 :END:
