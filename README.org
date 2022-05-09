@@ -28,8 +28,53 @@ I write all of my posts (and almost everything else) using [[https://www.gnu.org
 I use [[https://orgmode.org/][Org Mode]], and I've recently discovered the useful [[https://ox-hugo.scripter.co/][ox-hugo]] minor mode to
 export the pages using the [[https://gohugo.io/][Hugo]] engine.
 
-* Posts [0/0]
+* Posts [0/0]                                                                   :@code:@clues:
 :EXPORT_HUGO_SECTION_FRAG: clues
+** TODO Loops in Lisp                                                          :100daysToOffload:
+:PROPERTIES:
+:EXPORT_FILE_NAME: loops-in-lisp
+:END:
+There are two type of lisp coders. Those that *love* the =loop= macro and those
+that don't.
+
+#+hugo: more
+
+I'm one of the former.
+
+Take this beautiful construction:
+
+#+begin_src lisp
+(loop for item in mylist
+      collect (first item) into known-keys
+      maximize (second item) into big
+      minimize (second item) into small
+      finally (return (values known-keys big small)))
+#+end_src
+
+Even not knowing what =mylist= was you could guess that =known-keys= would be
+the collection of all the first elements of =item=, and =big= and =small= would
+be the largest and smallest values in the second part of =item=.
+
+-----
+
+If I told you that =mylist= was a list of items that had two elements, *viz.*
+
+#+begin_src lisp
+((a . 3) (b . 2) (c . 1))
+#+end_src
+
+You'd be able to guess that the result would be something like
+
+#+begin_src lisp
+(a b c)
+3
+1
+#+end_src
+
+-----
+
+=loop= is easy to read and reflects the true strength of common lisp - [[https://en.wikipedia.org/wiki/Domain-specific_language][DSLs]] make
+readable (and performant) code easy.
 * Blog Ideas    [0/0]                                                          :dont_export_this_blog:
 * COMMENT Local Variables                                                       :dont_export_this_blog:
 # Local Variables:
