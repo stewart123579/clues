@@ -21,3 +21,17 @@ The plan is that when I find something useful I will add it to this file in the
 Blog Ideas section and then, at some point in the future, I will write it up in
 a blog-post style. The blog posts will appear in my blog at
 https://stewart123579.github.io/blog/categories/clues
+
+* This file and blogging
+
+I write all of my posts (and almost everything else) using [[https://www.gnu.org/software/emacs/][Emacs]]. In particular
+I use [[https://orgmode.org/][Org Mode]], and I've recently discovered the useful [[https://ox-hugo.scripter.co/][ox-hugo]] minor mode to
+export the pages using the [[https://gohugo.io/][Hugo]] engine.
+
+* Posts [0/0]
+:EXPORT_HUGO_SECTION_FRAG: clues
+* Blog Ideas    [0/0]                                                          :dont_export_this_blog:
+* COMMENT Local Variables                                                       :dont_export_this_blog:
+# Local Variables:
+# org-hierarchical-todo-statistics: nil
+# End:
