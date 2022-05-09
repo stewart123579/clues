@@ -29,8 +29,8 @@ I use [[https://orgmode.org/][Org Mode]], and I've recently discovered the usefu
 export the pages using the [[https://gohugo.io/][Hugo]] engine.
 
 * Posts [0/0]                                                                   :@code:@clues:
+:PROPERTIES:
 :EXPORT_HUGO_SECTION_FRAG: clues
-** TODO Loops in Lisp                                                          :100daysToOffload:
 :PROPERTIES:
 :EXPORT_FILE_NAME: loops-in-lisp
 :END:
