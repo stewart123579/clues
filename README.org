@@ -1,0 +1,23 @@
+#+hugo_base_dir: .
+#+TITLE: clues - Common Lisp Useful(?) Examples/Exemplars
+#+AUTHOR: Stewart V. Wright
+#+DATE: 2022/05/07
+#+LASTMOD: 2022/05/07
+#+EMAIL: stewart@vifortech.com
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:nil toc:t \n:nil ::t |:t ^:t -:t f:t *:t
+# #+OPTIONS:   tex:t d:(HIDE) tags:not-in-toc
+#+STARTUP:   num
+
+#+begin_quote
+Hopefully they're useful!
+#+end_quote
+
+This repo will contain examples (and exemplars) of what I think is useful lisp
+code. It will mainly be [[https://common-lisp.net/][common]] [[https://lisp-lang.org/][lisp]], but [[https://www.gnu.org/software/emacs/documentation.html][emacs lisp]] may also appear, and I guess
+any other lisp-y type languages (i.e. scheme).
+
+The plan is that when I find something useful I will add it to this file in the
+Blog Ideas section and then, at some point in the future, I will write it up in
+a blog-post style. The blog posts will appear in my blog at
+https://stewart123579.github.io/blog/categories/clues
