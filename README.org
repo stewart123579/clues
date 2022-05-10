@@ -20,15 +20,23 @@ any other lisp-y type languages (i.e. scheme).
 The plan is that when I find something useful I will add it to this file in the
 Blog Ideas section and then, at some point in the future, I will write it up in
 a blog-post style. The blog posts will appear in my blog at
-https://stewart123579.github.io/blog/categories/clues
+https://stewart123579.github.io/blog/tags/clues
 
 * This file and blogging
 
 I write all of my posts (and almost everything else) using [[https://www.gnu.org/software/emacs/][Emacs]]. In particular
 I use [[https://orgmode.org/][Org Mode]], and I've recently discovered the useful [[https://ox-hugo.scripter.co/][ox-hugo]] minor mode to
 export the pages using the [[https://gohugo.io/][Hugo]] engine.
+** clues
+:PROPERTIES:
+:EXPORT_HUGO_SECTION: tags/clues
+:EXPORT_FILE_NAME: _index
+:END:
+There are my various CLUEs (Common Lisp Useful Examples/Exemplars) posts.
 
-* Posts [2/2]                                                                   :@code:@clues:
+The orgmode (i.e. text) file that they are generated from is available:
+https://github.com/stewart123579/clues
+* Posts [2/2]                                                                   :clues:@code:
 :PROPERTIES:
 :EXPORT_HUGO_SECTION_FRAG: clues
 :END:
