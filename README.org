@@ -28,9 +28,29 @@ I write all of my posts (and almost everything else) using [[https://www.gnu.org
 I use [[https://orgmode.org/][Org Mode]], and I've recently discovered the useful [[https://ox-hugo.scripter.co/][ox-hugo]] minor mode to
 export the pages using the [[https://gohugo.io/][Hugo]] engine.
 
-* Posts [0/0]                                                                   :@code:@clues:
+* Posts [2/2]                                                                   :@code:@clues:
 :PROPERTIES:
 :EXPORT_HUGO_SECTION_FRAG: clues
+:END:
+** Quicklisp
+:PROPERTIES:
+:EXPORT_HUGO_SECTION_FRAG: quicklisp
+:END:
+*** DONE Update list of local projects for Quicklisp                          :100daysToOffload:
+CLOSED: [2022-05-10 Tue 09:55]
+:PROPERTIES:
+:EXPORT_FILE_NAME: update-list-of-local-projects
+:END:
+
+I always forget how to update the list of local projects for Quicklisp.
+
+#+hugo: more
+
+#+begin_src lisp
+  (ql:register-local-projects)
+#+end_src
+
+I think I learned about it from [[https://www.darkchestnut.com/2016/quicklisp-load-personal-projects-from-arbitrary-locations/][Wimpie Nortje's post]].
 ** DONE Loops in Lisp                                                          :100daysToOffload:
 CLOSED: [2022-05-03 Tue 21:55]
 :PROPERTIES:
