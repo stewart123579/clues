@@ -35,7 +35,7 @@ There are my various CLUEs (Common Lisp Useful Examples/Exemplars) posts.
 
 The orgmode (i.e. text) file that they are generated from is available:
 https://github.com/stewart123579/clues
-* Posts [2/3]                                                                   :lisp:clues:@code:
+* Posts [3/3]                                                                   :lisp:clues:@code:
 :PROPERTIES:
 :EXPORT_HUGO_SECTION_FRAG: clues
 :END:
@@ -104,8 +104,201 @@ You'd be able to guess that the result would be something like
 
 =loop= is easy to read and reflects the true strength of common lisp - [[https://en.wikipedia.org/wiki/Domain-specific_language][DSLs]] make
 readable (and performant) code easy.
+
+** DONE Removing functions and variables in lisp                               :100daysToOffload:@tutorial:
+CLOSED: [2022-06-06 Mon]
+:PROPERTIES:
+:EXPORT_FILE_NAME: removing-functions-and-variables-in-lisp
+:header-args: :eval never-export
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :summary "How to remove definitions and why the lisp namespaces are preferable to other languages' approaches."
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :math true
+:END:
+
+Here's how to remove variables and functions from an image:
+
+#+begin_src lisp
+  (makunbound 'variable)
+
+  (fmakunbound 'function)
+#+end_src
+
+So, for example:
+
+#+begin_src lisp
+  (defvar foo 42)
+  (defun bar () (print "Hello world!"))
+
+  (boundp 'foo)                           ;; T
+  (fboundp 'bar)                          ;; T
+
+  (makunbound 'foo)
+  (fmakunbound 'bar)
+
+  (boundp 'foo)                           ;; nil
+  (fboundp 'bar)                          ;; nil
+#+end_src
+
+Read on to find out [[id:6D4C2CEC-820A-4527-AB00-6273C454F385][why I prefer the lisp approach]] over most other languages.
+*** What does this look like in other languages?
+In interpreted languages, like python and R there is the concept of removing or
+deleting a variable or function.
+
+In python you ~del variable~, in R you ~rm(variable)~:
+
+#+begin_src python
+foo = 5
+foo
+#+end_src
+
+Naturally results in
+#+RESULTS:
+: 5
+
+Now we delete the variable:
+#+begin_src python
+del foo    # Delete foo
+foo
+#+end_src
+#+begin_example
+# Traceback (most recent call last):
+#   File "<stdin>", line 1, in <module>
+# NameError: name 'foo' is not defined
+#+end_example
+*** Why does common lisp appear to make it more complicated?
+
+Why do we use ~makunbound~ and ~fmakunbound~, etc., in common lisp?
+
+/(The following is lightly rewritten and sourced from Peter Norvig's [[https://github.com/norvig/paip-lisp/blob/b6f85cf4f08d577e26b4e631b01107948bfc82a1/docs/chapter24.md#the-seven-name-spaces=][Paradigms of
+Artificial Intelligence Programming]])/
+
+...because common Lisp has at least /seven/ name spaces. The two we think of
+most often are
+
+1. *Functions* and *Macros*
+2. *Variables*
+
+
+Python, R, Scheme, etc. conflate these two name spaces, but Common Lisp keeps
+them separate, so that in a function application like ~(f)~ the function/macro
+name space is consulted for the value of ~f~, but in ~(+ f)~, ~f~ is treated as
+a variable name.
+
+3. [@3] *Special variables* form a distinct name space from *lexical
+   variables*
+   @@hugo:{{< line-break >}}@@
+   So the ~f~ in ~(+ f)~ is treated as either a special or lexical variable,
+   depending on if there is an applicable special declaration.
+4. *Data types*
+   @@hugo:{{< line-break >}}@@
+   Even if ~f~ is defined as a function and/or a variable, it can also be
+   defined as a data type with ~defstruct~, ~deftype~, or ~defclass~.
+5. *Labels* for ~go~ statements within a tagbody
+6. *Block names* for ~return-from~ statements within a block
+7. *Symbols* inside a quoted expression are treated as constants, and thus form
+   name space
+   @@hugo:{{< line-break >}}@@
+   These symbols are often used as keys in user-defined tables, and in a sense
+   each such table defines a new name space. One example is the tag name space,
+   used by catch and throw. Another is the package name space.
+
+**** Just because you /can/ do something, doesn't mean you /should/
+#+begin_quote
+It is a good idea to limit each symbol to only one name space. Common Lisp will
+not be confused if a symbol is used in multiple ways, but the poor human reader
+probably will be.
+- Peter Norvig, [[https://github.com/norvig/paip-lisp/blob/b6f85cf4f08d577e26b4e631b01107948bfc82a1/docs/chapter24.md#the-seven-name-spaces=][Paradigms of Artificial Intelligence Programming]]
+#+end_quote
+
+🤣
+
+*** Why do I like the lisp approach?
+:PROPERTIES:
+:ID:       6D4C2CEC-820A-4527-AB00-6273C454F385
+:END:
+It cuts down on errors.
+
+When collaborating it is easy to clash in your namespaces. You might define the
+variable ~two_pi~, I might want to define ~two_pi~ as a function. My code runs,
+I merge it. Your code runs, you merge it. We didn't have appropriate testing...
+💣💥
+
+Here's a contrived example, presented in three different programming languages:
+R, python and (common) lisp.
+
+Here I define a variable ~two_pi~ to be twice the value of \( \pi \), then I
+define a function to calculate the circumference of a circle and then I define a
+function (also) called ~two_pi~. Let's see what happens...
+
+**** In R
+#+begin_src R :exports both
+  two_pi <- 2 * pi
+
+  circumference <- function(r) {
+    cat("R: The circumference is ", (two_pi * r), "\n")
+  }
+
+  # We all know pi is actually 3
+  two_pi <- function() {
+    return(6);
+  }
+
+  circumference(1)
+#+end_src
+
+In this case R redefines what is meant by ~two_pi~ and the circumference function
+fails.  Why?  Because you need to /call/ functions: ~two_pi()~
+
+#+RESULTS:
+: Error in two_pi * r : non-numeric argument to binary operator
+
+**** In python
+#+begin_src python :exports both
+  import math
+
+  two_pi = 2 * pi
+
+  def circumference(r):
+      print(f"python: The circumference is {two_pi * r}")
+
+  # We all know pi is actually 3
+  def two_pi():
+      return 6
+
+  circumference(1)
+#+end_src
+
+
+Python also redefines what is meant by ~two_pi~ and the circumference function fails.
+
+#+RESULTS:
+: Traceback (most recent call last):
+:   File "<stdin>", line 1, in <module>
+:   File "<stdin>", line 2, in circumference
+: TypeError: unsupported operand type(s) for *: 'function' and 'int'
+
+**** In lisp
+#+begin_src lisp :results output :exports both
+  (setf two_pi (* 2 pi))
+
+  (defun circumference (r)
+    (format t "cl: The circumference is ~a~&" (* two_pi r)))
+
+  ;; We all know pi is actually only 3.
+  (defun two_pi ()
+    6)
+
+  (circumference 1)
+
+#+end_src
+
+Common lisp works, because it keeps functions and variables in difference
+namespaces and knows which one to call at which point.
+#+RESULTS:
+: cl: The circumference is 6.283185307179586d0
+
 * Blog Ideas    [0/0]                                                          :dont_export_this_blog:
 * COMMENT Local Variables                                                       :dont_export_this_blog:
 # Local Variables:
 # org-hierarchical-todo-statistics: nil
+# org-log-done-with-time: nil
 # End:
