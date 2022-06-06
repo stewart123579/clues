@@ -35,7 +35,7 @@ There are my various CLUEs (Common Lisp Useful Examples/Exemplars) posts.
 
 The orgmode (i.e. text) file that they are generated from is available:
 https://github.com/stewart123579/clues
-* Posts [2/2]                                                                   :clues:@code:
+* Posts [2/3]                                                                   :lisp:clues:@code:
 :PROPERTIES:
 :EXPORT_HUGO_SECTION_FRAG: clues
 :END:
@@ -43,7 +43,7 @@ https://github.com/stewart123579/clues
 :PROPERTIES:
 :EXPORT_HUGO_SECTION_FRAG: quicklisp
 :END:
-*** DONE Update list of local projects for Quicklisp                          :100daysToOffload:
+*** DONE Update list of local projects for Quicklisp                          :@tutorial:100daysToOffload:
 CLOSED: [2022-05-10 Tue 09:55]
 :PROPERTIES:
 :EXPORT_FILE_NAME: update-list-of-local-projects
